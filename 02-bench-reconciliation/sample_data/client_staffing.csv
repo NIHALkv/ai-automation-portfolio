@@ -1,0 +1,121 @@
+emp_id,name,org_unit,wbs_type,project,status
+E1000,Sneha Iyer,Data & AI,BL,PRJ-412,Billable
+E1001,Lakshmi Nair,Cloud Infra,BL,PRJ-101,Billable
+E1002,Meera Reddy,Data & AI,BL,PRJ-102,Billable
+E1003,Arjun Pillai,Data & AI,BL,PRJ-310,Billable
+E1004,Anu Nair,Data & AI,BL,PRJ-205,Billable
+E1005,Kavya Rao,Boot Camp,BN,,Bench
+E1006,Ravi Menon,Cloud Infra,BL,PRJ-102,Billable
+E1007,Manoj Das,Cloud Infra,BL,PRJ-310,Billable
+E1008,Meera Rao,Cloud Infra,BL,PRJ-101,Billable
+E1009,Meera Reddy,Cloud Infra,BL,PRJ-101,Billable
+E1010,Manoj Nair,Data & AI,BN,,Bench
+E1011,Anu Menon,Cloud Infra,BL,PRJ-102,Billable
+E1012,Vikram Joshi,Cloud Infra,BN,,Bench
+E1013,Ravi Joshi,Data & AI,BL,PRJ-310,Billable
+E1014,Anu Das,Cloud Infra,BL,PRJ-101,Billable
+E1015,Ravi Rao,Data & AI,BN,,Bench
+E1016,Ravi Reddy,Digital Eng,BN,,Bench
+E1017,Divya Shah,Data & AI,BL,PRJ-102,Billable
+E1018,Manoj Iyer,Cloud Infra,BL,PRJ-310,Billable
+E1019,Deepak Menon,Data & AI,BL,PRJ-412,Billable
+E1020,Anu Shah,Cloud Infra,BN,,Bench
+E1021,Deepak Iyer,Data & AI,BL,PRJ-101,Billable
+E1022,Arjun Joshi,Cloud Infra,BL,PRJ-310,Billable
+E1023,Anu Rao,Boot Camp,BN,,Bench
+E1024,Anil Menon,Digital Eng,BL,PRJ-101,Billable
+E1025,Deepak Menon,Digital Eng,BL,PRJ-102,Billable
+E1026,Anu Nair,Data & AI,BL,PRJ-412,Billable
+E1027,Rohan Rao,Cloud Infra,BN,,Bench
+E1028,Suresh Reddy,Boot Camp,BN,,Bench
+E1029,Manoj Pillai,Digital Eng,BL,PRJ-412,Billable
+E1030,Pooja Joshi,Data & AI,BL,PRJ-412,Billable
+E1031,Pooja Pillai,Digital Eng,BN,,Bench
+E1032,Rahul Rao,Cloud Infra,BL,PRJ-102,Billable
+E1033,Kiran Rao,Cloud Infra,BL,PRJ-102,Billable
+E1034,Meera Joshi,Digital Eng,BL,PRJ-101,Billable
+E1035,Rahul Reddy,Cloud Infra,BL,PRJ-412,Billable
+E1036,Suresh Pillai,Cloud Infra,BL,PRJ-101,Billable
+E1037,Pooja Shah,Data & AI,BN,,Bench
+E1038,Rohan Menon,Digital Eng,BN,,Bench
+E1039,Arjun Reddy,Digital Eng,BL,PRJ-101,Billable
+E1040,Manoj Iyer,Data & AI,BL,PRJ-310,Billable
+E1041,Sneha Iyer,Digital Eng,BL,PRJ-412,Billable
+E1042,Suresh Das,Cloud Infra,BL,PRJ-310,Billable
+E1043,Ravi Menon,Cloud Infra,BL,PRJ-412,Billable
+E1044,Deepak Joshi,Boot Camp,BN,,Bench
+E1045,Sneha Pillai,Data & AI,BL,PRJ-205,Billable
+E1046,Anil Joshi,Boot Camp,BN,,Bench
+E1047,Suresh Joshi,Data & AI,BL,PRJ-310,Billable
+E1048,Pooja Menon,Digital Eng,BN,,Bench
+E1049,Meera Shah,Cloud Infra,BN,,Bench
+E1050,Suresh Menon,Digital Eng,BN,,Bench
+E1051,Ravi Shah,Data & AI,BL,PRJ-102,Billable
+E1052,Anu Kumar,Boot Camp,BN,,Bench
+E1053,Rahul Das,Data & AI,BL,PRJ-205,Billable
+E1054,Anil Nair,Data & AI,BL,PRJ-102,Billable
+E1055,Pooja Pillai,Data & AI,BN,,Bench
+E1056,Kiran Joshi,Data & AI,BN,,Bench
+E1057,Arjun Kumar,Data & AI,BL,PRJ-310,Billable
+E1058,Ravi Rao,Boot Camp,BN,,Bench
+E1059,Rahul Iyer,Cloud Infra,BL,PRJ-205,Billable
+E1060,Vikram Das,Digital Eng,BL,PRJ-101,Billable
+E1061,Lakshmi Kumar,Digital Eng,BL,PRJ-101,Billable
+E1062,Meera Iyer,Cloud Infra,BL,PRJ-205,Billable
+E1063,Pooja Das,Cloud Infra,BN,,Bench
+E1064,Deepak Shah,Boot Camp,BN,,Bench
+E1065,Divya Das,Data & AI,BL,PRJ-101,Billable
+E1066,Deepak Shah,Digital Eng,BL,PRJ-102,Billable
+E1067,Manoj Pillai,Digital Eng,BN,,Bench
+E1068,Lakshmi Rao,Cloud Infra,BL,PRJ-205,Billable
+E1069,Divya Menon,Cloud Infra,BL,PRJ-412,Billable
+E1070,Kiran Iyer,Cloud Infra,BL,PRJ-101,Billable
+E1071,Vikram Rao,Digital Eng,BL,PRJ-102,Billable
+E1072,Asha Kumar,Cloud Infra,BN,,Bench
+E1073,Anu Iyer,Boot Camp,BN,,Bench
+E1074,Priya Shah,Cloud Infra,BL,PRJ-101,Billable
+E1075,Asha Iyer,Cloud Infra,BL,PRJ-205,Billable
+E1076,Manoj Reddy,Data & AI,BL,PRJ-205,Billable
+E1077,Anil Joshi,Boot Camp,BN,,Bench
+E1078,Anu Pillai,Cloud Infra,BL,PRJ-412,Billable
+E1079,Divya Reddy,Digital Eng,BL,PRJ-102,Billable
+E1080,Rohan Nair,Boot Camp,BN,,Bench
+E1081,Pooja Reddy,Boot Camp,BN,,Bench
+E1082,Lakshmi Das,Digital Eng,BL,PRJ-205,Billable
+E1083,Lakshmi Das,Cloud Infra,BL,PRJ-102,Billable
+E1084,Arjun Kumar,Digital Eng,BL,PRJ-102,Billable
+E1085,Lakshmi Nair,Digital Eng,BL,PRJ-205,Billable
+E1086,Neha Menon,Digital Eng,BN,,Bench
+E1087,Neha Kumar,Cloud Infra,BL,PRJ-412,Billable
+E1088,Kiran Menon,Cloud Infra,BL,PRJ-101,Billable
+E1089,Sneha Joshi,Data & AI,BL,PRJ-310,Billable
+E1090,Ravi Menon,Cloud Infra,BL,PRJ-412,Billable
+E1091,Asha Joshi,Digital Eng,BL,PRJ-102,Billable
+E1092,Divya Reddy,Digital Eng,BL,PRJ-102,Billable
+E1093,Arjun Pillai,Cloud Infra,BL,PRJ-101,Billable
+E1094,Rohan Nair,Data & AI,BN,,Bench
+E1095,Meera Rao,Cloud Infra,BL,PRJ-310,Billable
+E1096,Rohan Das,Digital Eng,BN,,Bench
+E1097,Divya Shah,Data & AI,BL,PRJ-205,Billable
+E1098,Anil Joshi,Cloud Infra,BL,PRJ-101,Billable
+E1099,Anil Kumar,Cloud Infra,BN,,Bench
+E1100,Arjun Menon,Cloud Infra,BL,PRJ-205,Billable
+E1101,Suresh Kumar,Boot Camp,BN,,Bench
+E1102,Suresh Kumar,Cloud Infra,BL,PRJ-205,Billable
+E1103,Rahul Menon,Digital Eng,BL,PRJ-205,Billable
+E1104,Divya Menon,Cloud Infra,BL,PRJ-412,Billable
+E1105,Sneha Shah,Data & AI,BL,PRJ-101,Billable
+E1106,Suresh Iyer,Digital Eng,BL,PRJ-102,Billable
+E1107,Kavya Nair,Cloud Infra,BN,,Bench
+E1108,Neha Reddy,Digital Eng,BL,PRJ-102,Billable
+E1109,Anil Iyer,Digital Eng,BL,PRJ-102,Billable
+E1110,Deepak Nair,Data & AI,BL,PRJ-412,Billable
+E1111,Kavya Shah,Cloud Infra,BL,PRJ-310,Billable
+E1112,Meera Shah,Digital Eng,BL,PRJ-102,Billable
+E1113,Kavya Pillai,Digital Eng,BL,PRJ-412,Billable
+E1114,Kiran Pillai,Cloud Infra,BL,PRJ-412,Billable
+E1115,Vikram Reddy,Digital Eng,BL,PRJ-412,Billable
+E1116,Deepak Reddy,Cloud Infra,BL,PRJ-101,Billable
+E1117,Sneha Rao,Data & AI,BL,PRJ-102,Billable
+E1118,Rohan Rao,Digital Eng,BN,,Bench
+E1119,Vikram Das,Data & AI,BL,PRJ-310,Billable

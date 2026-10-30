@@ -1,0 +1,61 @@
+demand_id,business_unit,practice,status,approved_by,raised_on
+DM-7000,Travel,Cloud Infra,Approved,arjun.j@example.com,2026-10-11
+DM-7001,Insurance,Digital Eng,Approved,meera.n@example.com,2026-10-30
+DM-7002,Travel,Data & AI,Pending,,2026-10-15
+DM-7003,Insurance,Cloud Infra,Approved,rahul.d@example.com,2026-10-15
+DM-7004,Travel,Data & AI,Approved,divya.i@example.com,2026-10-10
+DM-7005,Travel,Cloud Infra,Pending,,2026-10-23
+DM-7006,Travel,Data & AI,Pending,,2026-10-14
+DM-7007,Insurance,Cloud Infra,Approved,vikram.s@example.com,2026-10-28
+DM-7008,Banking,Digital Eng,Approved,anita.r@example.com,2026-10-30
+DM-7009,Travel,Cloud Infra,Pending,,2026-10-22
+DM-7010,Insurance,Digital Eng,Approved,lakshmi.k@example.com,2026-10-18
+DM-7011,Travel,Data & AI,Pending,,2026-10-17
+DM-7012,Banking,Digital Eng,Approved,anita.r@example.com,2026-10-26
+DM-7013,Banking,Data & AI,Pending,,2026-10-27
+DM-7014,Travel,Cloud Infra,Approved,arjun.j@example.com,2026-10-17
+DM-7015,Insurance,Cloud Infra,Pending,,2026-10-21
+DM-7016,Banking,Digital Eng,Approved,anita.r@example.com,2026-10-13
+DM-7017,Insurance,Digital Eng,Approved,meera.n@example.com,2026-10-20
+DM-7018,Travel,Cloud Infra,Pending,,2026-10-30
+DM-7019,Banking,Data & AI,Pending,,2026-10-11
+DM-7020,Banking,Data & AI,Pending,,2026-10-25
+DM-7021,Travel,Cloud Infra,Pending,,2026-10-20
+DM-7022,Banking,Data & AI,Pending,,2026-10-12
+DM-7023,Travel,Cloud Infra,Approved,lakshmi.k@example.com,2026-10-10
+DM-7024,Travel,Data & AI,Pending,,2026-10-12
+DM-7025,Travel,Cloud Infra,Approved,arjun.j@example.com,2026-10-10
+DM-7026,Travel,Data & AI,Pending,,2026-10-28
+DM-7027,Banking,Data & AI,Approved,kiran.p@example.com,2026-10-26
+DM-7028,Insurance,Cloud Infra,Approved,vikram.s@example.com,2026-10-27
+DM-7029,Insurance,Digital Eng,Approved,vikram.s@example.com,2026-10-18
+DM-7030,Insurance,Cloud Infra,Pending,,2026-10-20
+DM-7031,Travel,Data & AI,Approved,divya.i@example.com,2026-10-29
+DM-7032,Travel,Cloud Infra,Approved,arjun.j@example.com,2026-10-13
+DM-7033,Travel,Cloud Infra,Approved,rahul.d@example.com,2026-10-21
+DM-7034,Insurance,Cloud Infra,Pending,,2026-10-26
+DM-7035,Insurance,Digital Eng,Pending,,2026-10-20
+DM-7036,Insurance,Cloud Infra,Approved,meera.n@example.com,2026-10-18
+DM-7037,Insurance,Digital Eng,Approved,meera.n@example.com,2026-10-11
+DM-7038,Travel,Data & AI,Pending,,2026-10-27
+DM-7039,Insurance,Cloud Infra,Pending,,2026-10-14
+DM-7040,Travel,Cloud Infra,Approved,lakshmi.k@example.com,2026-10-23
+DM-7041,Banking,Data & AI,Pending,,2026-10-17
+DM-7042,Banking,Digital Eng,Pending,,2026-10-14
+DM-7043,Travel,Cloud Infra,Approved,arjun.j@example.com,2026-10-17
+DM-7044,Banking,Digital Eng,Pending,,2026-10-20
+DM-7045,Insurance,Digital Eng,Approved,meera.n@example.com,2026-10-26
+DM-7046,Insurance,Cloud Infra,Approved,rahul.d@example.com,2026-10-19
+DM-7047,Insurance,Digital Eng,Pending,,2026-10-19
+DM-7048,Insurance,Digital Eng,Pending,,2026-10-22
+DM-7049,Insurance,Cloud Infra,Pending,,2026-10-30
+DM-7050,Travel,Data & AI,Approved,divya.i@example.com,2026-10-19
+DM-7051,Insurance,Digital Eng,Approved,meera.n@example.com,2026-10-11
+DM-7052,Banking,Digital Eng,Approved,anita.r@example.com,2026-10-19
+DM-7053,Travel,Data & AI,Pending,,2026-10-22
+DM-7054,Travel,Data & AI,Approved,divya.i@example.com,2026-10-30
+DM-7055,Travel,Data & AI,Pending,,2026-10-26
+DM-7056,Banking,Data & AI,Approved,suresh.m@example.com,2026-10-22
+DM-7057,Banking,Data & AI,Approved,suresh.m@example.com,2026-10-10
+DM-7058,Insurance,Digital Eng,Pending,,2026-10-27
+DM-7059,Banking,Digital Eng,Pending,,2026-10-20

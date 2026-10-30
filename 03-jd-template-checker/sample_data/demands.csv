@@ -1,0 +1,855 @@
+demand_id,role,demand_status,jd_text
+DM-5000,Cloud Architect,Internal,"Role Summary: Cloud Architect
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: AWS, Terraform, networking"
+DM-5001,Business Analyst,Migrated,"Role Summary: Business Analyst
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: Requirements, SQL, stakeholder mgmt"
+DM-5002,Business Analyst,Migrated,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 4+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5003,Java Developer,Internal,"Need a Java Developer with Java, Spring Boot, REST APIs. 10 years exp. Immediate joiner preferred."
+DM-5004,Business Analyst,Internal,"Job Summary: Business Analyst
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: Requirements, SQL, stakeholder mgmt
+
+Nice to Have: Power BI
+
+Years of Experience: 8
+
+Education: Any graduate"
+DM-5005,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 11+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5006,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 2+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5007,Java Developer,Migrated,"Need a Java Developer with Java, Spring Boot, REST APIs. 9 years exp. Immediate joiner preferred."
+DM-5008,Business Analyst,Post go-live JR created,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 5+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5009,Java Developer,Post go-live JR created,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5010,Business Analyst,Post go-live JR created,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 3+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5011,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 10+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5012,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 8+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5013,Java Developer,Internal,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 2+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5014,Data Engineer,Migrated,"Role Summary: Data Engineer
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: Python, SQL, Spark"
+DM-5015,Cloud Architect,Post go-live JR created,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 3+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5016,QA Analyst,Migrated,"Role Summary:
+We are looking for a QA Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Selenium, test planning
+
+Good to Have Skills: Playwright, JMeter
+
+Experience: 7+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5017,Cloud Architect,Migrated,"Need a Cloud Architect with AWS, Terraform, networking. 3 years exp. Immediate joiner preferred."
+DM-5018,Java Developer,Post go-live JR created,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5019,Business Analyst,Migrated,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 5+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5020,Data Engineer,Post go-live JR created,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 8+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5021,Cloud Architect,Migrated,"Job Summary: Cloud Architect
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: AWS, Terraform, networking
+
+Nice to Have: Kubernetes
+
+Years of Experience: 5
+
+Education: Any graduate"
+DM-5022,QA Analyst,Migrated,"Role Summary:
+We are looking for a QA Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Selenium, test planning
+
+Good to Have Skills: Playwright, JMeter
+
+Experience: 2+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5023,Business Analyst,Post go-live JR created,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 12+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5024,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 5+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5025,Business Analyst,Internal,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 7+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5026,Java Developer,Migrated,"Need a Java Developer with Java, Spring Boot, REST APIs. 3 years exp. Immediate joiner preferred."
+DM-5027,Business Analyst,Migrated,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 7+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5028,Business Analyst,Internal,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5029,Cloud Architect,Post go-live JR created,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 4+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5030,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 11+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5031,Business Analyst,Post go-live JR created,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 5+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5032,Cloud Architect,Migrated,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 11+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5033,Java Developer,Post go-live JR created,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 2+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5034,Cloud Architect,Migrated,"Role Summary: Cloud Architect
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: AWS, Terraform, networking"
+DM-5035,QA Analyst,Migrated,"Need a QA Analyst with Selenium, test planning. 10 years exp. Immediate joiner preferred."
+DM-5036,Data Engineer,Migrated,"Job Summary: Data Engineer
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: Python, SQL, Spark
+
+Nice to Have: Airflow, Databricks
+
+Years of Experience: 5
+
+Education: Any graduate"
+DM-5037,Business Analyst,Migrated,"Need a Business Analyst with Requirements, SQL, stakeholder mgmt. 3 years exp. Immediate joiner preferred."
+DM-5038,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 3+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5039,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 2+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5040,Business Analyst,Migrated,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 4+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5041,Cloud Architect,Post go-live JR created,"Job Summary: Cloud Architect
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: AWS, Terraform, networking
+
+Nice to Have: Kubernetes
+
+Years of Experience: 7
+
+Education: Any graduate"
+DM-5042,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 11+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5043,QA Analyst,Internal,"Role Summary:
+We are looking for a QA Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Selenium, test planning
+
+Good to Have Skills: Playwright, JMeter
+
+Experience: 6+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5044,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5045,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 3+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5046,Java Developer,Post go-live JR created,"Role Summary: Java Developer
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: Java, Spring Boot, REST APIs"
+DM-5047,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 12+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5048,Cloud Architect,Internal,"Job Summary: Cloud Architect
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: AWS, Terraform, networking
+
+Nice to Have: Kubernetes
+
+Years of Experience: 2
+
+Education: Any graduate"
+DM-5049,Cloud Architect,Post go-live JR created,"Need a Cloud Architect with AWS, Terraform, networking. 8 years exp. Immediate joiner preferred."
+DM-5050,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 12+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5051,Cloud Architect,Migrated,"Job Summary: Cloud Architect
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: AWS, Terraform, networking
+
+Nice to Have: Kubernetes
+
+Years of Experience: 7
+
+Education: Any graduate"
+DM-5052,Cloud Architect,Migrated,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5053,Business Analyst,Migrated,"Role Summary: Business Analyst
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: Requirements, SQL, stakeholder mgmt"
+DM-5054,Java Developer,Internal,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 5+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5055,Business Analyst,Internal,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 12+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5056,Java Developer,Migrated,"Need a Java Developer with Java, Spring Boot, REST APIs. 7 years exp. Immediate joiner preferred."
+DM-5057,Business Analyst,Post go-live JR created,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 4+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5058,Cloud Architect,Internal,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5059,QA Analyst,Post go-live JR created,"Need a QA Analyst with Selenium, test planning. 5 years exp. Immediate joiner preferred."
+DM-5060,Data Engineer,Migrated,"Need a Data Engineer with Python, SQL, Spark. 8 years exp. Immediate joiner preferred."
+DM-5061,Data Engineer,Migrated,"Need a Data Engineer with Python, SQL, Spark. 4 years exp. Immediate joiner preferred."
+DM-5062,Java Developer,Internal,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 6+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5063,Cloud Architect,Internal,"Role Summary: Cloud Architect
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: AWS, Terraform, networking"
+DM-5064,Business Analyst,Post go-live JR created,"Job Summary: Business Analyst
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: Requirements, SQL, stakeholder mgmt
+
+Nice to Have: Power BI
+
+Years of Experience: 9
+
+Education: Any graduate"
+DM-5065,Cloud Architect,Migrated,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 7+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5066,Business Analyst,Post go-live JR created,"Role Summary:
+We are looking for a Business Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Requirements, SQL, stakeholder mgmt
+
+Good to Have Skills: Power BI
+
+Experience: 2+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5067,QA Analyst,Post go-live JR created,"Job Summary: QA Analyst
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: Selenium, test planning
+
+Nice to Have: Playwright, JMeter
+
+Years of Experience: 6
+
+Education: Any graduate"
+DM-5068,Data Engineer,Migrated,"Role Summary:
+We are looking for a Data Engineer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Python, SQL, Spark
+
+Good to Have Skills: Airflow, Databricks
+
+Experience: 8+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5069,QA Analyst,Post go-live JR created,"Job Summary: QA Analyst
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: Selenium, test planning
+
+Nice to Have: Playwright, JMeter
+
+Years of Experience: 5
+
+Education: Any graduate"
+DM-5070,Java Developer,Migrated,"Role Summary:
+We are looking for a Java Developer.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Java, Spring Boot, REST APIs
+
+Good to Have Skills: Kafka, AWS
+
+Experience: 9+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5071,QA Analyst,Post go-live JR created,"Role Summary:
+We are looking for a QA Analyst.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: Selenium, test planning
+
+Good to Have Skills: Playwright, JMeter
+
+Experience: 3+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5072,Cloud Architect,Migrated,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 6+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5073,Cloud Architect,Post go-live JR created,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 10+ years
+
+Qualification: B.E./B.Tech or equivalent"
+DM-5074,QA Analyst,Post go-live JR created,"Job Summary: QA Analyst
+
+Roles & Responsibilities:
+- Own delivery
+
+Must Have Skills: Selenium, test planning
+
+Nice to Have: Playwright, JMeter
+
+Years of Experience: 7
+
+Education: Any graduate"
+DM-5075,Business Analyst,Migrated,"Need a Business Analyst with Requirements, SQL, stakeholder mgmt. 4 years exp. Immediate joiner preferred."
+DM-5076,Java Developer,Internal,"Need a Java Developer with Java, Spring Boot, REST APIs. 8 years exp. Immediate joiner preferred."
+DM-5077,Cloud Architect,Migrated,"Need a Cloud Architect with AWS, Terraform, networking. 9 years exp. Immediate joiner preferred."
+DM-5078,Cloud Architect,Post go-live JR created,"Role Summary: Cloud Architect
+
+Responsibilities:
+- Build and maintain systems
+
+Skills: AWS, Terraform, networking"
+DM-5079,Cloud Architect,Post go-live JR created,"Role Summary:
+We are looking for a Cloud Architect.
+
+Key Responsibilities:
+- Deliver features
+- Work with the client team
+
+Mandatory Skills: AWS, Terraform, networking
+
+Good to Have Skills: Kubernetes
+
+Experience: 7+ years
+
+Qualification: B.E./B.Tech or equivalent"
