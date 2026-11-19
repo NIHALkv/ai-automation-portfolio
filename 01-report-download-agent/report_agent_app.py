@@ -20,8 +20,6 @@ import os
 import sys
 from pathlib import Path
 
-from agent import run_job
-
 APP_NAME = "Report Agent"
 
 # Built-in defaults (same as config.example.json). Selectors match the platform's UI.
@@ -179,6 +177,8 @@ def main() -> int:
     if ask_yes_no("\nRemember these answers for next time? (password is never saved)", True):
         save_settings(cfg)
 
+    from agent import run_job  # imported here so a startup problem is shown, not swallowed
+
     print("\nStarting... a browser will open, log in and generate the reports.")
     print(f"After triggering, it waits {cfg['post_trigger_wait_s']}s for the reports to be built, then downloads them.\n")
     try:
@@ -201,8 +201,32 @@ def main() -> int:
     return 0 if summary.overall == "SUCCESS" else 2
 
 
+def crash_log_path() -> Path:
+    try:
+        return settings_path().parent / "error_log.txt"
+    except Exception:  # noqa: BLE001
+        return Path.home() / "report_agent_error_log.txt"
+
+
 if __name__ == "__main__":
-    code = main()
+    try:
+        code = main()
+    except KeyboardInterrupt:
+        code = 130
+    except BaseException:  # noqa: BLE001 — never close silently
+        import traceback
+
+        details = traceback.format_exc()
+        log_file = crash_log_path()
+        try:
+            log_file.write_text(details, encoding="utf-8")
+        except Exception:  # noqa: BLE001
+            pass
+        print("\n*** The app hit an error and stopped. ***\n")
+        print(details)
+        print(f"Details saved to: {log_file}")
+        print("Please send this message (or a screenshot) to the person who shared the app.")
+        code = 1
     if getattr(sys, "frozen", False) and sys.stdin.isatty():
         input("\nPress Enter to close...")
     sys.exit(code)
