@@ -35,18 +35,22 @@ A third fix: if a report was still showing *"Generating..."* when the agent came
 | `notifier.py` | SMTP email summaries |
 | `report_log.py` | Excel run log, CSV fallback when the workbook is locked |
 | `scheduler.py` | Headless CLI: `--once` or `--at 08:30` |
-| `report_agent_app.py` | Interactive launcher. This is what `report_agent.exe` runs |
+| `report_agent_gui.py` | The desktop app (branded window). This is what `report_agent.exe` runs |
+| `report_agent_app.py` | Settings and config helpers (also a text-mode version of the app) |
+| `branding/` | Official logo and icon from the brand kit |
 | `webapp.py` | One-button local web UI for teammates |
 | `config.example.json` | All URLs, selectors and report names, so no code edits are needed |
 | `tests/mock_platform.py` | A fake reports site with the same page structure (and a simulated SSO sign-in with `MOCK_SSO=1`), for testing without the real platform |
 
-## Easiest: the Windows app (no Python needed)
+## Easiest: the Windows app (no Python, no command prompt)
+
+![Report Downloader app](docs/app-screenshot.png)
+
 1. Download **report_agent.exe** from the repo's **Releases** (`report-agent-latest`).
 2. Double-click it. If Windows warns, click **More info → Run anyway** (the app is unsigned).
-3. **First run:** press Enter twice (reports = `ALL`, save to `Desktop\Reports`, or type your own).
-4. A browser window opens. **Sign in with your company account (SSO)** as you normally do. The app waits up to 5 minutes and then carries on by itself: it triggers every report, waits, downloads the fresh files, and opens the folder.
-
-**Next runs:** double-click → **Enter**. The sign-in is remembered in the app's own browser profile, so there's nothing to type. Type `C` to change which reports or the folder.
+3. Choose **All reports** (or type a few names) and where to save. Both are remembered.
+4. Click **Download reports**. A browser window opens. **Sign in with your company account (SSO)** the first time. The sign-in is remembered for later runs.
+5. Watch it work: **Sign in → Generate → Wait → Download**, with each report's status live. The folder opens when it's done.
 
 No usernames, passwords or emails are asked or stored. The app uses **Microsoft Edge** (already on every Windows PC) or Chrome.
 

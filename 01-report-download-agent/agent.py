@@ -190,6 +190,7 @@ def sso_sign_in(page: Page, cfg: dict) -> None:
         pass
     wait_s = cfg.get("sso_wait_s", 300)
     log.info("please sign in with your company account in the browser window (waiting up to %d min)...", wait_s // 60)
+    _notify(cfg, "signin_needed", wait_s=wait_s)
     deadline = time.time() + wait_s
     while time.time() < deadline:
         # after SSO the platform may land on its home page, so go back to reports when needed
@@ -216,6 +217,16 @@ def discover_reports(page: Page, cfg: dict) -> list[str]:
     return [t.strip() for t in titles if t.strip()]
 
 
+def _notify(cfg: dict, event: str, **data) -> None:
+    """Optional progress callback for a UI: cfg["on_progress"](event, data)."""
+    cb = cfg.get("on_progress")
+    if cb:
+        try:
+            cb(event, data)
+        except Exception:  # noqa: BLE001 — a UI problem must never stop the run
+            pass
+
+
 def run_job(cfg: dict) -> RunSummary:
     summary = RunSummary(started=datetime.now())
     summary.results = [ReportResult(n) for n in cfg.get("reports") or []]
@@ -223,6 +234,7 @@ def run_job(cfg: dict) -> RunSummary:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
+        _notify(cfg, "step", name="signin")
         browser, page = open_session(p, cfg)
         try:
             try:
@@ -234,6 +246,7 @@ def run_job(cfg: dict) -> RunSummary:
                 if not summary.results:  # no list given: download every report on the page
                     summary.results = [ReportResult(n) for n in discover_reports(page, cfg)]
                     log.info("found %d reports: %s", len(summary.results), ", ".join(r.name for r in summary.results))
+                _notify(cfg, "reports", names=[r.name for r in summary.results])
             except Exception as exc:  # noqa: BLE001 — still log and email the failure
                 if not summary.results:
                     summary.results = [ReportResult("(all reports)")]
@@ -242,6 +255,7 @@ def run_job(cfg: dict) -> RunSummary:
                 raise _AbortRun from exc
 
             # Phase 1 — trigger everything
+            _notify(cfg, "step", name="generate")
             trigger_time = datetime.now() - timedelta(seconds=cfg.get("clock_skew_s", 120))
             for r in summary.results:
                 try:
@@ -249,19 +263,23 @@ def run_job(cfg: dict) -> RunSummary:
                     r.status = "TRIGGERED"
                 except Exception as exc:  # noqa: BLE001
                     r.status, r.error = "FAILED", f"trigger: {exc}"
+                _notify(cfg, "report", name=r.name, status=r.status, error=r.error)
             send_summary(cfg, summary, phase="attempted")
 
             # Wait for the server to build the reports
             log.info("waiting %ss for generation", cfg["post_trigger_wait_s"])
+            _notify(cfg, "step", name="wait", seconds=cfg["post_trigger_wait_s"])
             time.sleep(cfg["post_trigger_wait_s"])
             page.reload()
 
             # Phase 2 — download only fresh files, with retries
+            _notify(cfg, "step", name="download")
             for r in (x for x in summary.results if x.status == "TRIGGERED"):
                 for attempt in range(cfg.get("download_retries", 3)):
                     try:
                         r.file = str(download_report(page, cfg, r.name, trigger_time, out_dir))
                         r.status = "DOWNLOADED"
+                        _notify(cfg, "report", name=r.name, status=r.status, file=r.file)
                         break
                     except Exception as exc:  # noqa: BLE001 — one bad report must not stop the run
                         r.error = str(exc)
@@ -269,11 +287,16 @@ def run_job(cfg: dict) -> RunSummary:
                         page.reload()
                 else:
                     r.status = "FAILED"
+                    _notify(cfg, "report", name=r.name, status=r.status, error=r.error)
         except _AbortRun:
             pass
         finally:
             browser.close()
 
+    if summary.results and all(r.status == "FAILED" for r in summary.results) and summary.results[0].error \
+            and summary.results[0].error.startswith("login/navigation"):
+        _notify(cfg, "report", name=summary.results[0].name, status="FAILED", error=summary.results[0].error)
     append_log(cfg, summary)
     send_summary(cfg, summary, phase="final")
+    _notify(cfg, "done", overall=summary.overall)
     return summary

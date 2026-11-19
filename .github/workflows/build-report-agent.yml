@@ -33,40 +33,48 @@ jobs:
       - name: Install
         run: pip install playwright openpyxl pyinstaller flask
 
-      - name: Build exe (platform address built in from repo variable)
+      - name: Fetch brand font (Plus Jakarta Sans, OFL)
+        shell: pwsh
+        continue-on-error: true
+        run: Invoke-WebRequest "https://github.com/google/fonts/raw/main/ofl/plusjakartasans/PlusJakartaSans%5Bwght%5D.ttf" -OutFile branding/PlusJakartaSans.ttf
+
+      - name: Build exe (windowed app, PF branding, platform address built in)
         shell: pwsh
         env:
           PLATFORM_URL: ${{ vars.PLATFORM_URL }}
         run: |
+          $data = @("--add-data", "branding;branding")
           if ($env:PLATFORM_URL) {
             @{ base_url = $env:PLATFORM_URL.TrimEnd('/') } | ConvertTo-Json | Set-Content -Encoding utf8 built_in.json
-            $data = "--add-data", "built_in.json;."
+            $data += @("--add-data", "built_in.json;.")
             Write-Host "Platform address built in."
           } else {
-            $data = @()
-            Write-Host "::warning::PLATFORM_URL variable not set - the exe will ask for the address once."
+            Write-Host "::warning::PLATFORM_URL variable not set - the app will ask for the address once."
           }
-          pyinstaller --onefile --console --name report_agent --collect-all playwright @data report_agent_app.py
+          pyinstaller --onefile --windowed --name report_agent --icon branding/pf-icon.ico --collect-all playwright @data report_agent_gui.py
 
-      - name: Smoke test the exe against the mock platform (uses Edge)
+      - name: Smoke test the app against the mock platform (uses Edge, simulated SSO)
         shell: pwsh
         run: |
-          $env:MOCK_SSO = "1"   # mock behaves like company SSO: signs in by itself after 3s
+          $env:MOCK_SSO = "1"
           Start-Process python -ArgumentList "tests/mock_platform.py","5055","5" -WorkingDirectory $PWD -WindowStyle Hidden
           Start-Sleep -Seconds 4
-          # config.json next to the exe points it at the mock and shortens the wait
           '{"base_url": "http://127.0.0.1:5055", "post_trigger_wait_s": 5, "headless": true}' | Set-Content -Encoding utf8 dist/config.json
           $out = "$env:RUNNER_TEMP\reports"
           $env:APPDATA = "$env:RUNNER_TEMP\appdata"
-          # first run answers: reports, folder
-          "ALL`n$out`n" | dist\report_agent.exe
-          $files = Get-ChildItem -Recurse "$out" -Filter *.xlsx | Where-Object { $_.Name -ne "Download_Log.xlsx" }
+          New-Item -ItemType Directory -Force "$env:APPDATA\ReportAgent" | Out-Null
+          @{ download_root = $out; reports = @() } | ConvertTo-Json | Set-Content -Encoding utf8 "$env:APPDATA\ReportAgent\settings.json"
+          $env:REPORT_AGENT_AUTOSTART = "1"   # app clicks "Download reports" itself and closes when done
+          $p = Start-Process dist\report_agent.exe -PassThru -Wait
+          Write-Host "App exit code: $($p.ExitCode) (2 = PARTIAL, expected: the mock has one broken report)"
+          if (Test-Path "$env:APPDATA\ReportAgent\app_log.txt") { Get-Content "$env:APPDATA\ReportAgent\app_log.txt" | Select-Object -Last 15 }
+          $files = Get-ChildItem -Recurse "$out" -Filter *.xlsx -ErrorAction SilentlyContinue | Where-Object { $_.Name -ne "Download_Log.xlsx" }
           Write-Host "Downloaded files:"; $files | ForEach-Object { Write-Host "  $($_.Name)" }
           if ($files.Count -ne 3) { throw "Expected 3 downloaded reports, got $($files.Count)" }
           if (-not (Test-Path "$out\Download_Log.xlsx")) { throw "Run log missing" }
           Remove-Item dist/config.json
           Write-Host "Smoke test passed."
-          $global:LASTEXITCODE = 0   # exe exits 2 for PARTIAL (expected: mock has a broken report)
+          $global:LASTEXITCODE = 0
 
       - name: Move the release tag to this commit
         working-directory: .
@@ -80,7 +88,7 @@ jobs:
           tag_name: report-agent-latest
           name: Report Agent (latest)
           body: |
-            Download **report_agent.exe** and double-click it. Press Enter, sign in with your company account (SSO) in the browser the first time, and it does the rest.
+            Download **report_agent.exe** and double-click it. Click **Download reports**, sign in with your company account (SSO) in the browser the first time, and watch each report download.
             Tested automatically on Windows before release.
           files: 01-report-download-agent/dist/report_agent.exe
           make_latest: true
