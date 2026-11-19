@@ -35,11 +35,31 @@ A third fix: if a report was still showing *"Generating..."* when the agent came
 | `notifier.py` | SMTP email summaries |
 | `report_log.py` | Excel run log, CSV fallback when the workbook is locked |
 | `scheduler.py` | Headless CLI: `--once` or `--at 08:30` |
+| `report_agent_app.py` | Interactive launcher. This is what `report_agent.exe` runs |
 | `webapp.py` | One-button local web UI for teammates |
 | `config.example.json` | All URLs, selectors and report names, so no code edits are needed |
 | `tests/mock_platform.py` | A fake reports site with the same page structure, for testing without the real platform |
 
-## Run
+## Easiest: the Windows app (no Python needed)
+1. Download **report_agent.exe** from the repo's **Releases** (`report-agent-latest`).
+2. Double-click it. If Windows warns, click **More info → Run anyway** (the app is unsigned).
+3. Answer the questions:
+
+| # | Question | Notes |
+|---|---|---|
+| 1 | Login email / username | remembered |
+| 2 | Password | hidden while typing, **never saved** |
+| 3 | Reports to download | comma-separated, or `ALL` for every report on the page |
+| 4 | Save files in folder | default `Desktop\Reports` |
+| 5 | Show the browser? | `Y` to watch it work |
+| 6 | Email a summary? | needs a Gmail app password |
+
+The platform address is built into the .exe, so nobody types it. Answers are remembered, so the next run is just **Enter → password → Enter**.
+The app uses **Microsoft Edge** (already on every Windows PC) or Chrome, so nothing else needs installing.
+
+**For maintainers:** the address comes from the GitHub repo variable `PLATFORM_URL` (Settings → Secrets and variables → Actions → Variables). It's never in the code. Every push builds the .exe on Windows, **tests it against the mock platform**, and only then publishes it.
+
+## Run with Python
 ```bash
 pip install -r ../requirements.txt && playwright install chromium
 cp config.example.json config.json   # fill in URL, login, selectors

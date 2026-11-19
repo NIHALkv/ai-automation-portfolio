@@ -1,0 +1,85 @@
+# Builds report_agent.exe on Windows, tests it against the mock platform,
+# then publishes it as the "report-agent-latest" release.
+#
+# The platform address is NOT in the code. Set it once in GitHub:
+#   Settings > Secrets and variables > Actions > Variables > New variable
+#   Name: PLATFORM_URL   Value: https://your-platform-address
+name: Build Report Agent exe
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "01-report-download-agent/**"
+      - ".github/workflows/build-report-agent.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: 01-report-download-agent
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install playwright openpyxl pyinstaller flask
+
+      - name: Build exe (platform address built in from repo variable)
+        shell: pwsh
+        env:
+          PLATFORM_URL: ${{ vars.PLATFORM_URL }}
+        run: |
+          if ($env:PLATFORM_URL) {
+            @{ base_url = $env:PLATFORM_URL.TrimEnd('/') } | ConvertTo-Json | Set-Content -Encoding utf8 built_in.json
+            $data = "--add-data", "built_in.json;."
+            Write-Host "Platform address built in."
+          } else {
+            $data = @()
+            Write-Host "::warning::PLATFORM_URL variable not set - the exe will ask for the address once."
+          }
+          pyinstaller --onefile --console --name report_agent --collect-all playwright @data report_agent_app.py
+
+      - name: Smoke test the exe against the mock platform (uses Edge)
+        shell: pwsh
+        run: |
+          Start-Process python -ArgumentList "tests/mock_platform.py","5055","5" -WorkingDirectory $PWD -WindowStyle Hidden
+          Start-Sleep -Seconds 4
+          # config.json next to the exe points it at the mock and shortens the wait
+          '{"base_url": "http://127.0.0.1:5055", "post_trigger_wait_s": 5}' | Set-Content -Encoding utf8 dist/config.json
+          $out = "$env:RUNNER_TEMP\reports"
+          $env:APPDATA = "$env:RUNNER_TEMP\appdata"
+          # answers: username, password, reports, folder, show browser, email, remember
+          "test@example.com`nsecret`nALL`n$out`nn`nn`nn`n" | dist\report_agent.exe
+          $files = Get-ChildItem -Recurse "$out" -Filter *.xlsx | Where-Object { $_.Name -ne "Download_Log.xlsx" }
+          Write-Host "Downloaded files:"; $files | ForEach-Object { Write-Host "  $($_.Name)" }
+          if ($files.Count -ne 3) { throw "Expected 3 downloaded reports, got $($files.Count)" }
+          if (-not (Test-Path "$out\Download_Log.xlsx")) { throw "Run log missing" }
+          Remove-Item dist/config.json
+          Write-Host "Smoke test passed."
+          $global:LASTEXITCODE = 0   # exe exits 2 for PARTIAL (expected: mock has a broken report)
+
+      - name: Move the release tag to this commit
+        working-directory: .
+        run: |
+          git tag -f report-agent-latest
+          git push -f origin report-agent-latest
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: report-agent-latest
+          name: Report Agent (latest)
+          body: |
+            Download **report_agent.exe** and double-click it. It asks for your login and which reports to download, then does the rest.
+            Tested automatically on Windows before release.
+          files: 01-report-download-agent/dist/report_agent.exe
+          make_latest: true

@@ -42,7 +42,7 @@ class RunSummary:
     @property
     def overall(self) -> str:
         ok = sum(r.status == "DOWNLOADED" for r in self.results)
-        if ok == len(self.results):
+        if self.results and ok == len(self.results):
             return "SUCCESS"
         return "PARTIAL" if ok else "FAILED"
 
@@ -137,20 +137,45 @@ class _AbortRun(Exception):
     """Login or navigation failed: skip the rest but still log and email."""
 
 
+def launch_browser(p, cfg: dict):
+    """Use a browser already on the PC (Edge, then Chrome) so nothing extra needs
+    installing; fall back to Playwright's own Chromium if neither is available."""
+    headless = cfg.get("headless", True)
+    for channel in cfg.get("browser_channels", ["msedge", "chrome", None]):
+        try:
+            return p.chromium.launch(headless=headless, channel=channel) if channel else p.chromium.launch(headless=headless)
+        except Exception as exc:  # noqa: BLE001
+            log.debug("browser %s not available: %s", channel or "bundled chromium", exc)
+    raise RuntimeError("No browser found. Install Microsoft Edge or Google Chrome.")
+
+
+def discover_reports(page: Page, cfg: dict) -> list[str]:
+    """Read the title of every report card on the page (used when no list is given)."""
+    s = cfg["selectors"]
+    page.wait_for_selector(s["report_card"], timeout=30_000)
+    titles = page.locator(s["report_card"]).locator(s["report_title"]).all_inner_texts()
+    return [t.strip() for t in titles if t.strip()]
+
+
 def run_job(cfg: dict) -> RunSummary:
     summary = RunSummary(started=datetime.now())
-    summary.results = [ReportResult(n) for n in cfg["reports"]]
+    summary.results = [ReportResult(n) for n in cfg.get("reports") or []]
     out_dir = Path(cfg["download_root"]) / datetime.now().strftime("%d-%m-%Y")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=cfg.get("headless", True))
+        browser = launch_browser(p, cfg)
         page = browser.new_page(accept_downloads=True)
         try:
             try:
                 login(page, cfg)
                 page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
+                if not summary.results:  # no list given: download every report on the page
+                    summary.results = [ReportResult(n) for n in discover_reports(page, cfg)]
+                    log.info("found %d reports: %s", len(summary.results), ", ".join(r.name for r in summary.results))
             except Exception as exc:  # noqa: BLE001 — still log and email the failure
+                if not summary.results:
+                    summary.results = [ReportResult("(all reports)")]
                 for r in summary.results:
                     r.status, r.error = "FAILED", f"login/navigation: {exc}"
                 raise _AbortRun from exc
