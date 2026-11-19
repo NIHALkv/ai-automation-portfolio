@@ -1,0 +1,39 @@
+{
+  "base_url": "http://127.0.0.1:5055",
+  "reports_path": "/dashboards-reports",
+  "username": "test@example.com",
+  "password": "test",
+  "headless": true,
+  "reports": [
+    "Allocation Report",
+    "Demand Report",
+    "Skills Report",
+    "Broken Report"
+  ],
+  "download_root": "./downloads",
+  "post_trigger_wait_s": 10,
+  "clock_skew_s": 120,
+  "download_retries": 3,
+  "time_format": "%d-%m-%Y %H:%M",
+  "selectors": {
+    "username": "input[name=email]",
+    "password": "input[name=password]",
+    "login_button": "button[type=submit]",
+    "report_card": "app-report-accordion",
+    "report_title": "h3",
+    "generate_button": "button:has-text('GENERATE REPORT')",
+    "panel_generate_button": "button:has-text('GENERATE REPORT')",
+    "history_row": ".history-row",
+    "history_time": ".history-time",
+    "download_icon": "mat-icon:has-text('download')",
+    "close_button": "button:has-text('Close')"
+  },
+  "email": {
+    "enabled": false,
+    "sender": "you@gmail.com",
+    "app_password": "",
+    "recipients": [
+      "team@example.com"
+    ]
+  }
+}

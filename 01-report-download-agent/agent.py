@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from playwright.sync_api import Locator, Page, TimeoutError as PWTimeout, sync_playwright
+from playwright.sync_api import Locator, Page, sync_playwright
 
 from notifier import send_summary
 from report_log import append_log
@@ -111,7 +111,11 @@ def download_report(page: Page, cfg: dict, name: str, since: datetime, out_dir: 
     rows = card.locator(s["history_row"])
     for i in range(rows.count()):
         row = rows.nth(i)
-        stamp = datetime.strptime(row.locator(s["history_time"]).inner_text().strip(), cfg["time_format"])
+        text = row.locator(s["history_time"]).inner_text().strip()
+        try:
+            stamp = datetime.strptime(text, cfg["time_format"])
+        except ValueError:
+            continue  # row still says "Generating..." or similar: not ready yet
         if stamp >= since:
             with page.expect_download(timeout=60_000) as dl:
                 robust_click(row.locator(s["download_icon"]), f"{name}: download")
@@ -129,6 +133,10 @@ def safe(name: str) -> str:
 # --------------------------------------------------------------------------
 # Orchestration
 # --------------------------------------------------------------------------
+class _AbortRun(Exception):
+    """Login or navigation failed: skip the rest but still log and email."""
+
+
 def run_job(cfg: dict) -> RunSummary:
     summary = RunSummary(started=datetime.now())
     summary.results = [ReportResult(n) for n in cfg["reports"]]
@@ -139,8 +147,13 @@ def run_job(cfg: dict) -> RunSummary:
         browser = p.chromium.launch(headless=cfg.get("headless", True))
         page = browser.new_page(accept_downloads=True)
         try:
-            login(page, cfg)
-            page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
+            try:
+                login(page, cfg)
+                page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
+            except Exception as exc:  # noqa: BLE001 — still log and email the failure
+                for r in summary.results:
+                    r.status, r.error = "FAILED", f"login/navigation: {exc}"
+                raise _AbortRun from exc
 
             # Phase 1 — trigger everything
             trigger_time = datetime.now() - timedelta(seconds=cfg.get("clock_skew_s", 120))
@@ -164,12 +177,14 @@ def run_job(cfg: dict) -> RunSummary:
                         r.file = str(download_report(page, cfg, r.name, trigger_time, out_dir))
                         r.status = "DOWNLOADED"
                         break
-                    except (RuntimeError, PWTimeout) as exc:
+                    except Exception as exc:  # noqa: BLE001 — one bad report must not stop the run
                         r.error = str(exc)
                         time.sleep(30)
                         page.reload()
                 else:
                     r.status = "FAILED"
+        except _AbortRun:
+            pass
         finally:
             browser.close()
 

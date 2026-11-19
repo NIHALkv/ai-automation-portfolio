@@ -26,6 +26,8 @@ The platform's report cards sit inside a header the UI framework marks `aria-dis
 
 A second bug: after a successful download, closing the panel sometimes failed. That marked good reports as failed. Cleanup now runs `best_effort()` so it can never override a real result.
 
+A third fix: if a report was still showing *"Generating..."* when the agent came back to download it, the run crashed and no log or email went out. The agent now skips unfinished rows and retries. If login fails or the site is down, every report is marked FAILED and the run is still logged and emailed.
+
 ## Files
 | File | Role |
 |------|------|
@@ -35,6 +37,7 @@ A second bug: after a successful download, closing the panel sometimes failed. T
 | `scheduler.py` | Headless CLI: `--once` or `--at 08:30` |
 | `webapp.py` | One-button local web UI for teammates |
 | `config.example.json` | All URLs, selectors and report names, so no code edits are needed |
+| `tests/mock_platform.py` | A fake reports site with the same page structure, for testing without the real platform |
 
 ## Run
 ```bash
@@ -43,6 +46,15 @@ cp config.example.json config.json   # fill in URL, login, selectors
 python scheduler.py --once           # or: python webapp.py
 ```
 `config.json` is git-ignored so credentials never get committed.
+
+## Test without the real platform
+`tests/mock_platform.py` copies the real UI's tricky parts: aria-disabled headers, a two-step generate, a stale file from yesterday, "Generating..." rows, and one broken report.
+```bash
+python tests/mock_platform.py 5055 5        # fake site on port 5055, reports ready after 5s
+cp tests/config.mock.json config.json
+python scheduler.py --once                  # expected: PARTIAL (3 downloaded, Broken Report failed)
+```
+Scenarios verified: normal run (3 fresh files downloaded, stale file ignored), report still generating (clean FAILED, no crash), platform down (all FAILED, still logged and emailed), and the one-click web UI.
 
 ## Next step
 Replace hard-coded selectors with an LLM-guided step ("find the Generate button for report X") so the agent survives UI changes.
