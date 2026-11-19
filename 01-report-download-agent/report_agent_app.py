@@ -80,12 +80,12 @@ def bundled_file(name: str) -> Path:
 
 def load_config() -> dict:
     cfg = dict(DEFAULTS)
-    built_in = bundled_file("built_in.json")
-    if built_in.exists():
-        cfg = deep_merge(cfg, json.loads(built_in.read_text(encoding="utf-8")))
+    built_in_file = bundled_file("built_in.json")
+    built_in = json.loads(built_in_file.read_text(encoding="utf-8")) if built_in_file.exists() else {}
     sp = settings_path()
     if sp.exists():
         cfg = deep_merge(cfg, json.loads(sp.read_text(encoding="utf-8")))
+    cfg = deep_merge(cfg, built_in)  # built-in address always wins over an old saved one
     override = app_dir() / "config.json"
     if override.exists():
         cfg = deep_merge(cfg, json.loads(override.read_text(encoding="utf-8")))
