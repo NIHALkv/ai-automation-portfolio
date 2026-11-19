@@ -38,24 +38,17 @@ A third fix: if a report was still showing *"Generating..."* when the agent came
 | `report_agent_app.py` | Interactive launcher. This is what `report_agent.exe` runs |
 | `webapp.py` | One-button local web UI for teammates |
 | `config.example.json` | All URLs, selectors and report names, so no code edits are needed |
-| `tests/mock_platform.py` | A fake reports site with the same page structure, for testing without the real platform |
+| `tests/mock_platform.py` | A fake reports site with the same page structure (and a simulated SSO sign-in with `MOCK_SSO=1`), for testing without the real platform |
 
 ## Easiest: the Windows app (no Python needed)
 1. Download **report_agent.exe** from the repo's **Releases** (`report-agent-latest`).
 2. Double-click it. If Windows warns, click **More info → Run anyway** (the app is unsigned).
-3. Answer the questions:
+3. **First run:** press Enter twice (reports = `ALL`, save to `Desktop\Reports`, or type your own).
+4. A browser window opens. **Sign in with your company account (SSO)** as you normally do. The app waits up to 5 minutes and then carries on by itself: it triggers every report, waits, downloads the fresh files, and opens the folder.
 
-| # | Question | Notes |
-|---|---|---|
-| 1 | Login email / username | remembered |
-| 2 | Password | hidden while typing, **never saved** |
-| 3 | Reports to download | comma-separated, or `ALL` for every report on the page |
-| 4 | Save files in folder | default `Desktop\Reports` |
-| 5 | Show the browser? | `Y` to watch it work |
-| 6 | Email a summary? | needs a Gmail app password |
+**Next runs:** double-click → **Enter**. The sign-in is remembered in the app's own browser profile, so there's nothing to type. Type `C` to change which reports or the folder.
 
-The platform address is built into the .exe, so nobody types it. Answers are remembered, so the next run is just **Enter → password → Enter**.
-The app uses **Microsoft Edge** (already on every Windows PC) or Chrome, so nothing else needs installing.
+No usernames, passwords or emails are asked or stored. The app uses **Microsoft Edge** (already on every Windows PC) or Chrome.
 
 **For maintainers:** the address comes from the GitHub repo variable `PLATFORM_URL` (Settings → Secrets and variables → Actions → Variables). It's never in the code. Every push builds the .exe on Windows, **tests it against the mock platform**, and only then publishes it.
 

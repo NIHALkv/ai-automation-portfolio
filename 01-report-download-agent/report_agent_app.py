@@ -1,8 +1,9 @@
 """
 Report Agent: interactive launcher (this is what report_agent.exe runs).
 
-Double-click the .exe and answer a few questions. Answers (except the password)
-are remembered for next time, so later runs are just: Enter, Enter, password, Enter.
+Double-click the .exe and press Enter. A browser opens; sign in with your
+company account (SSO) the first time. The sign-in is remembered, so later runs
+need no typing at all beyond Enter.
 
 The platform address is built into the .exe at build time (GitHub repo variable
 PLATFORM_URL -> built_in.json), so it is never in the code and never asked.
@@ -13,7 +14,6 @@ e.g. page selectors or "post_trigger_wait_s".
 """
 from __future__ import annotations
 
-import getpass
 import json
 import logging
 import os
@@ -26,6 +26,8 @@ APP_NAME = "Report Agent"
 DEFAULTS: dict = {
     "base_url": "",
     "reports_path": "/dashboards-reports",
+    "login_mode": "sso",
+    "sso_wait_s": 300,
     "username": "",
     "password": "",
     "headless": False,
@@ -102,57 +104,34 @@ def ask(question: str, default: str = "", required: bool = False) -> str:
         print("  This is required.")
 
 
-def ask_yes_no(question: str, default: bool) -> bool:
-    hint = "Y/n" if default else "y/N"
-    answer = input(f"{question} ({hint}): ").strip().lower()
-    return default if not answer else answer.startswith("y")
-
-
-def ask_secret(question: str) -> str:
-    while True:
-        if sys.stdin.isatty():
-            value = getpass.getpass(f"{question} (hidden while typing): ")
-        else:  # answers piped in (automated test)
-            value = input(f"{question}: ")
-        if value:
-            return value
-        print("  This is required.")
+def ask_settings(cfg: dict) -> dict:
+    current = ", ".join(cfg["reports"]) if cfg["reports"] else "ALL"
+    names = ask("Reports to download, comma-separated (ALL = every report on the page)", current)
+    cfg["reports"] = [] if names.strip().upper() == "ALL" else [n.strip() for n in names.split(",") if n.strip()]
+    cfg["download_root"] = ask("Save files in folder", cfg["download_root"], required=True)
+    return cfg
 
 
 def collect_settings(cfg: dict) -> dict:
-    print("\nPress Enter to keep the value shown in [brackets].\n")
+    first_time = not settings_path().exists()
     if not cfg["base_url"]:  # only when the address isn't built into the .exe
-        url = ask("Platform address (e.g. https://yourcompany.platform.com)", required=True)
+        url = ask("\nPlatform address (e.g. https://yourcompany.platform.com)", required=True)
         cfg["base_url"] = (url if url.startswith("http") else "https://" + url).rstrip("/")
-    else:
-        print(f"Platform: {cfg['base_url']}\n")
-    cfg["username"] = ask("1. Login email / username", cfg["username"], required=True)
-    cfg["password"] = ask_secret("2. Password")
 
-    current = ", ".join(cfg["reports"]) if cfg["reports"] else "ALL"
-    names = ask("3. Reports to download, comma-separated (ALL = every report on the page)", current)
-    cfg["reports"] = [] if names.strip().upper() == "ALL" else [n.strip() for n in names.split(",") if n.strip()]
-
-    cfg["download_root"] = ask("4. Save files in folder", cfg["download_root"], required=True)
-    cfg["headless"] = not ask_yes_no("5. Show the browser while it works?", not cfg["headless"])
-
-    email = cfg["email"]
-    email["enabled"] = ask_yes_no("6. Email a summary when done?", email.get("enabled", False))
-    if email["enabled"]:
-        email["sender"] = ask("   Gmail address to send from", email.get("sender", ""), required=True)
-        email["app_password"] = ask_secret("   Gmail app password (16 characters)")
-        email["recipients"] = [
-            r.strip()
-            for r in ask("   Send to (comma-separated)", ", ".join(email.get("recipients", [])) or email["sender"]).split(",")
-            if r.strip()
-        ]
+    print(f"\n  Platform : {cfg['base_url']}")
+    print(f"  Reports  : {', '.join(cfg['reports']) if cfg['reports'] else 'ALL'}")
+    print(f"  Save to  : {cfg['download_root']}\n")
+    if first_time:
+        print("First run: press Enter to keep these, or type your own.\n")
+        return ask_settings(cfg)
+    if input("Press Enter to start, or type C to change these settings: ").strip().lower().startswith("c"):
+        return ask_settings(cfg)
     return cfg
 
 
 def save_settings(cfg: dict) -> None:
     """Remember only what the user answered (never passwords)."""
-    keep = {k: cfg[k] for k in ("base_url", "username", "reports", "download_root", "headless")}
-    keep["email"] = {k: v for k, v in cfg["email"].items() if k != "app_password"}
+    keep = {k: cfg[k] for k in ("base_url", "reports", "download_root")}
     settings_path().write_text(json.dumps(keep, indent=2), encoding="utf-8")
 
 
@@ -173,13 +152,16 @@ def main() -> int:
     logging.basicConfig(level=logging.INFO, format="  %(message)s")
     logging.getLogger("notifier").setLevel(logging.WARNING)
 
-    cfg = collect_settings(load_config())
-    if ask_yes_no("\nRemember these answers for next time? (password is never saved)", True):
-        save_settings(cfg)
+    cfg = load_config()
+    cfg["profile_dir"] = str(settings_path().parent / "browser-profile")
+    cfg = collect_settings(cfg)
+    save_settings(cfg)
 
     from agent import run_job  # imported here so a startup problem is shown, not swallowed
 
-    print("\nStarting... a browser will open, log in and generate the reports.")
+    print("\nStarting... a browser window will open.")
+    print("If it asks you to sign in, use your company account (SSO) as usual.")
+    print("You only need to do this once; the app remembers the sign-in.")
     print(f"After triggering, it waits {cfg['post_trigger_wait_s']}s for the reports to be built, then downloads them.\n")
     try:
         summary = run_job(cfg)

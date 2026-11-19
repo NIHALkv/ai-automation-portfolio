@@ -6,8 +6,11 @@
 - History rows: an old (stale) file, plus new jobs that show "Generating..."
   until ready, then a timestamp + download icon
 - "Broken Report" has no generate button (should FAIL -> PARTIAL run)
+- MOCK_SSO=1: unauthenticated users go to a fake SSO page that signs in by
+  itself after 3s and lands on /home (tests the SSO wait + return-to-reports)
 """
 import io
+import os
 import sys
 import time
 from datetime import datetime, timedelta
@@ -30,8 +33,17 @@ def login_page():
 @app.post("/login")
 def do_login():
     resp = redirect("/home")
-    resp.set_cookie("auth", "ok")
+    resp.set_cookie("auth", "ok", max_age=7 * 24 * 3600)  # persistent, like "stay signed in"
     return resp
+
+
+@app.get("/sso/login")
+def sso_login():
+    """Simulated company SSO page: signs in by itself after 3 seconds
+    (like Microsoft SSO on a company laptop), then lands on the home page."""
+    return """<p>Signing you in with your company account...</p>
+    <form id=f method=post action=/login></form>
+    <script>setTimeout(() => document.getElementById('f').submit(), 3000)</script>"""
 
 
 @app.get("/home")
@@ -56,7 +68,7 @@ def download():
 @app.get("/dashboards-reports")
 def reports():
     if request.cookies.get("auth") != "ok":
-        return redirect("/")
+        return redirect("/sso/login" if os.environ.get("MOCK_SSO") else "/")
     cards = []
     stale = (datetime.now() - timedelta(days=1)).strftime(FMT)
     for name in REPORTS:

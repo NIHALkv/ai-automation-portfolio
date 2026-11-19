@@ -51,14 +51,15 @@ jobs:
       - name: Smoke test the exe against the mock platform (uses Edge)
         shell: pwsh
         run: |
+          $env:MOCK_SSO = "1"   # mock behaves like company SSO: signs in by itself after 3s
           Start-Process python -ArgumentList "tests/mock_platform.py","5055","5" -WorkingDirectory $PWD -WindowStyle Hidden
           Start-Sleep -Seconds 4
           # config.json next to the exe points it at the mock and shortens the wait
-          '{"base_url": "http://127.0.0.1:5055", "post_trigger_wait_s": 5}' | Set-Content -Encoding utf8 dist/config.json
+          '{"base_url": "http://127.0.0.1:5055", "post_trigger_wait_s": 5, "headless": true}' | Set-Content -Encoding utf8 dist/config.json
           $out = "$env:RUNNER_TEMP\reports"
           $env:APPDATA = "$env:RUNNER_TEMP\appdata"
-          # answers: username, password, reports, folder, show browser, email, remember
-          "test@example.com`nsecret`nALL`n$out`nn`nn`nn`n" | dist\report_agent.exe
+          # first run answers: reports, folder
+          "ALL`n$out`n" | dist\report_agent.exe
           $files = Get-ChildItem -Recurse "$out" -Filter *.xlsx | Where-Object { $_.Name -ne "Download_Log.xlsx" }
           Write-Host "Downloaded files:"; $files | ForEach-Object { Write-Host "  $($_.Name)" }
           if ($files.Count -ne 3) { throw "Expected 3 downloaded reports, got $($files.Count)" }
@@ -79,7 +80,7 @@ jobs:
           tag_name: report-agent-latest
           name: Report Agent (latest)
           body: |
-            Download **report_agent.exe** and double-click it. It asks for your login and which reports to download, then does the rest.
+            Download **report_agent.exe** and double-click it. Press Enter, sign in with your company account (SSO) in the browser the first time, and it does the rest.
             Tested automatically on Windows before release.
           files: 01-report-download-agent/dist/report_agent.exe
           make_latest: true

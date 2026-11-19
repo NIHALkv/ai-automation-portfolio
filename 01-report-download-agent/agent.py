@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from playwright.sync_api import Locator, Page, sync_playwright
+from playwright.sync_api import Locator, Page, TimeoutError as PWTimeout, sync_playwright
 
 from notifier import send_summary
 from report_log import append_log
@@ -149,6 +149,65 @@ def launch_browser(p, cfg: dict):
     raise RuntimeError("No browser found. Install Microsoft Edge or Google Chrome.")
 
 
+def open_session(p, cfg: dict):
+    """Return (closeable, page).
+
+    login_mode "password": fresh browser, fill the login form (original behaviour).
+    login_mode "sso": a saved browser profile, so the company sign-in (SSO) is
+    remembered between runs. The user signs in once in the visible window.
+    """
+    if cfg.get("login_mode", "password") != "sso":
+        browser = launch_browser(p, cfg)
+        return browser, browser.new_page(accept_downloads=True)
+
+    profile = cfg.get("profile_dir") or str(Path.home() / ".report_agent_profile")
+    Path(profile).mkdir(parents=True, exist_ok=True)
+    headless = cfg.get("headless", False)
+    last_exc = None
+    for channel in cfg.get("browser_channels", ["msedge", "chrome", None]):
+        try:
+            kwargs = {"headless": headless, "accept_downloads": True}
+            if channel:
+                kwargs["channel"] = channel
+            ctx = p.chromium.launch_persistent_context(profile, **kwargs)
+            page = ctx.pages[0] if ctx.pages else ctx.new_page()
+            return ctx, page
+        except Exception as exc:  # noqa: BLE001
+            last_exc = exc
+            log.debug("browser %s not available: %s", channel or "bundled chromium", exc)
+    raise RuntimeError(f"Could not open a browser (Edge/Chrome): {last_exc}")
+
+
+def sso_sign_in(page: Page, cfg: dict) -> None:
+    """Open the reports page; if SSO sign-in is needed, wait for the user to finish it."""
+    s = cfg["selectors"]
+    page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
+    try:
+        page.wait_for_selector(s["report_card"], timeout=15_000)
+        log.info("already signed in")
+        return
+    except PWTimeout:
+        pass
+    wait_s = cfg.get("sso_wait_s", 300)
+    log.info("please sign in with your company account in the browser window (waiting up to %d min)...", wait_s // 60)
+    deadline = time.time() + wait_s
+    while time.time() < deadline:
+        # after SSO the platform may land on its home page, so go back to reports when needed
+        if page.locator(s["report_card"]).count() > 0:
+            log.info("signed in")
+            return
+        try:
+            url = page.url.lower()
+            on_platform = cfg["base_url"].split("//")[-1].split("/")[0].lower() in url
+            in_sign_in = any(w in url for w in ("login", "signin", "sign-in", "sso", "auth", "callback", "oauth"))
+            if on_platform and not in_sign_in and cfg["reports_path"].lower() not in url:
+                page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
+        except Exception:  # noqa: BLE001 — page may be mid-redirect
+            pass
+        page.wait_for_timeout(3_000)
+    raise RuntimeError("Sign-in not completed in time")
+
+
 def discover_reports(page: Page, cfg: dict) -> list[str]:
     """Read the title of every report card on the page (used when no list is given)."""
     s = cfg["selectors"]
@@ -164,12 +223,14 @@ def run_job(cfg: dict) -> RunSummary:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
-        browser = launch_browser(p, cfg)
-        page = browser.new_page(accept_downloads=True)
+        browser, page = open_session(p, cfg)
         try:
             try:
-                login(page, cfg)
-                page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
+                if cfg.get("login_mode", "password") == "sso":
+                    sso_sign_in(page, cfg)
+                else:
+                    login(page, cfg)
+                    page.goto(cfg["base_url"].rstrip("/") + cfg["reports_path"])
                 if not summary.results:  # no list given: download every report on the page
                     summary.results = [ReportResult(n) for n in discover_reports(page, cfg)]
                     log.info("found %d reports: %s", len(summary.results), ", ".join(r.name for r in summary.results))
