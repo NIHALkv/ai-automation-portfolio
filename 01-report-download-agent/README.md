@@ -1,5 +1,11 @@
 # 01 · Report Download Agent
 
+## ⬇️ [Download report_agent.exe](https://github.com/NIHALkv/ai-automation-portfolio/releases/download/report-agent-latest/report_agent.exe)
+
+Windows app. No install, no Python. Double-click it and sign in with your company account (SSO). If Windows warns, click **More info → Run anyway**. Always the latest version. [Full steps ↓](#easiest-the-windows-app-no-python-no-command-prompt)
+
+---
+
 An unattended browser agent that downloads every report from a SaaS platform and tells the team how it went.
 
 ## Problem
@@ -46,7 +52,7 @@ A third fix: if a report was still showing *"Generating..."* when the agent came
 
 ![Report Downloader app](docs/app-screenshot.png)
 
-1. Download **report_agent.exe** from the repo's **Releases** (`report-agent-latest`).
+1. [Download **report_agent.exe**](https://github.com/NIHALkv/ai-automation-portfolio/releases/download/report-agent-latest/report_agent.exe) (latest build from the repo's **Releases**, `report-agent-latest`).
 2. Double-click it. If Windows warns, click **More info → Run anyway** (the app is unsigned).
 3. Choose **All reports** (or type a few names) and where to save. Both are remembered.
 4. Click **Download reports**. A browser window opens. **Sign in with your company account (SSO)** the first time. The sign-in is remembered for later runs.
